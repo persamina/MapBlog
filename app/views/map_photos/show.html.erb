@@ -1,0 +1,5 @@
+<h1> A Map Photo </h1>
+<%= image_tag @map_photo.map_photo.url(:big) %>
+<br>
+<%= @map_photo.description %>
+<%= link_to "Delete", @map_photo, :method => :delete %>

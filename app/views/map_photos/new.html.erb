@@ -1,0 +1,6 @@
+<h1>New Photo</h1>
+<%= form_for :map_photo, url: map_photos_url do |f| %>
+  Photo: <%= f.file_field :map_photo %><br />
+  Description: <%= f.text_field :description %><br />
+  <%= f. submit %>
+<% end %>

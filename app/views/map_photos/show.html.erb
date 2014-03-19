@@ -5,7 +5,7 @@
 <script>
   $(document).ready(function() {
     var map = L.map('map').setView([<%= @map_photo.latitude %>, <%= @map_photo.longitude %>], 14);
-    var layer = L.mapbox.tileLayer('persamina.hejgkefp').addTo(map);
+    var layer = L.mapbox.tileLayer('<%= ENV["MAPBOX_MAP_ID"] %>').addTo(map);
     var photo_marker = L.marker([<%= @map_photo.latitude %>, <%= @map_photo.longitude %>]).addTo(map);
   }); 
 </script>

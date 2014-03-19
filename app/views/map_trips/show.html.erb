@@ -14,7 +14,7 @@
   <script>
     $(document).ready(function() {
       var map = L.mapbox.map('map');
-      L.mapbox.tileLayer('persamina.hejgkefp').addTo(map);
+      L.mapbox.tileLayer('<%= ENV["MAPBOX_MAP_ID"] %>').addTo(map);
 
       var geoJSON = [];
       var imageData = [];

@@ -130,24 +130,38 @@
       $('#fileupload').bind('fileuploaddone', function(e, data) {
         var galleria = $(".galleria").data('galleria');
         
-        var imageGeoJSON = {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [data.result.files[0].longitude, data.result.files[0].latitude]
-          },
-          properties: {
-            'marker-color': desselectedColor,
-            slideIndex: galleria.getDataLength() 
-          }
-        };
-        geoJSON.push(imageGeoJSON);
-        map.featureLayer.setGeoJSON(geoJSON); 
+        if(data.result.files[0].longitude != null || data.result.files[0].longitude  != null ) 
+        {
+          var imageGeoJSON = {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [data.result.files[0].longitude, data.result.files[0].latitude]
+            },
+            properties: {
+              'marker-color': desselectedColor,
+              slideIndex: galleria.getDataLength() 
+            }
+          };
+          geoJSON.push(imageGeoJSON);
+          map.featureLayer.setGeoJSON(geoJSON); 
+        }
+        var lat;
+        if (data.result.files[0].latitude != null)
+        {
+          lat = data.result.files[0].latitude.toString() ;
+        }
+
+        var lng;
+        if (data.result.files[0].longitude != null)
+        {
+          lng = data.result.files[0].longitude.toString() ;
+        }
 
         var imageData = { 
             image: data.result.files[0].url, 
-            latitude:  data.result.files[0].latitude.toString(), 
-            longitude: data.result.files[0].longitude.toString(),  
+            latitude: lat,   
+            longitude: lng,  
             description: data.result.files[0].description.toString(),
             slideIndex: galleria.getDataLength(),
             deleteUrl: data.result.files[0].delete_url

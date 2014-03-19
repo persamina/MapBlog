@@ -1,0 +1,5 @@
+<h1>Map Trips</h1>
+<% @map_trips.each do |map_trip| %>
+  <a href="<%=map_trip_url(map_trip) %>"><%= map_trip.title %></a>
+<% end %>
+

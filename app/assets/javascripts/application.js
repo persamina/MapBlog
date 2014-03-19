@@ -12,4 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-fileupload
+//= require twitter/bootstrap
+//= require jquery.exif
+//= require galleria-1.3.5.min
+//= require galleria.classic.min
 //= require_tree .

@@ -1,11 +1,18 @@
 class MapPhotosController < ApplicationController
+  layout "map"
+  respond_to :html, :json
+
   def index
+    @map_photos = MapPhoto.all
     render :index
   end
 
   def show
     @map_photo = MapPhoto.find(params[:id])
-    render :show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render :showRABL }
+    end
   end
 
   def new
@@ -14,18 +21,22 @@ class MapPhotosController < ApplicationController
   end
 
   def create
-    debugger
     @map_photo = MapPhoto.new(params[:map_photo])
+    @map_photo.user_id = current_user.id if current_user
+    @map_photo.map_trip_id = params[:map_trip_id]
     if @map_photo.save
-      redirect_to map_photos_url
+      respond_to do |format|
+        format.html { redirect_to map_photos_url }
+        format.json { render :showRABL }
+      end
     else
+      debugger
       flash[:errors] = @map_photo.errors.full_messages
       render :new
     end
   end
 
   def destroy
-    debugger
     @map_photo = MapPhoto.find(params[:id])
     @map_photo.map_photo.destroy
     @map_photo.destroy

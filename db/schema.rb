@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140110060505) do
+ActiveRecord::Schema.define(:version => 20140206185003) do
 
   create_table "map_photos", :force => true do |t|
     t.string   "description"
@@ -23,6 +23,35 @@ ActiveRecord::Schema.define(:version => 20140110060505) do
     t.string   "map_photo_content_type"
     t.integer  "map_photo_file_size"
     t.datetime "map_photo_updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "date_taken"
+  end
+
+  create_table "map_trips", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "title"
+    t.string   "description"
+    t.integer  "user_id"
+  end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_token"
+    t.integer  "user_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "sessions", ["session_token"], :name => "index_sessions_on_session_token"
+  add_index "sessions", ["user_id"], :name => "index_sessions_on_user_id"
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "session_token"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end

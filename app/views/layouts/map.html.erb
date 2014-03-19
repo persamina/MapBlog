@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MapBlog</title>
+  <title>MapBlog Leaflet</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
 </head>
 <body>
   <% if current_user %>
@@ -19,8 +21,5 @@
     <% end %>
   <% end %>
   <%= yield %>
-
-
-
 </body>
 </html>

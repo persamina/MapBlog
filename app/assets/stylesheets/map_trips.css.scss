@@ -1,0 +1,28 @@
+// Place all the styles related to the MapTrips controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.galleria {
+  border: 0px solid #d8d8d8;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  border-bottom-width: 3px;
+  margin: 10px;
+  float: left;
+}
+
+#photo_loader {
+  clear: both;
+}
+
+#map { 
+  border: 1px solid #d8d8d8;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  border-bottom-width: 3px;
+  margin: 10px;
+  float: left;
+  height: 450px; 
+  width: 450px;
+}

@@ -1,0 +1,12 @@
+<h1>New Map Trip</h1>
+<form action="<%= map_trips_url %>" method="POST" >
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input type="text" name="map_trip[title]" value="<%= @map_trip.title %>" placeholder="title">
+  <br>
+
+  <input type="text" name="map_trip[description]" value="<%= @map_trip.description %>" placeholder="description">
+  <br>
+
+  <input type="submit" value="Create New Map Trip!">
+</form>

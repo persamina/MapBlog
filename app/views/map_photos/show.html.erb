@@ -1,5 +1,11 @@
 <h1> A Map Photo </h1>
-<%= image_tag @map_photo.map_photo.url(:big) %>
-<br>
-<%= @map_photo.description %>
+<img src="<%= @map_photo.map_photo.url(:original) %>" id="img1" exif="true" name="ladeda">
+<div id="map"></div>
 <%= link_to "Delete", @map_photo, :method => :delete %>
+<script>
+  $(document).ready(function() {
+    var map = L.map('map').setView([<%= @map_photo.latitude %>, <%= @map_photo.longitude %>], 14);
+    var layer = L.mapbox.tileLayer('persamina.hejgkefp').addTo(map);
+    var photo_marker = L.marker([<%= @map_photo.latitude %>, <%= @map_photo.longitude %>]).addTo(map);
+  }); 
+</script>

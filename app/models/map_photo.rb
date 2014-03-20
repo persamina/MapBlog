@@ -3,8 +3,8 @@ class MapPhoto < ActiveRecord::Base
   belongs_to :map_trip
 
   has_attached_file :map_photo, :styles => {
-    :big => "600x600>",
-    :small => "50x50#"
+    :big => "700x700>",
+    :small => "75x75#"
   }
 
   before_save :load_exif

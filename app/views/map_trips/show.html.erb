@@ -1,16 +1,14 @@
-<style>
-  .galleria{ width: 600px; height: 450px; background: #FFF}
-</style>
 <h1><%= @map_trip.title %></h1>
-<h3><%= @map_trip.description %> </h3>
-<h4> By: <%= @map_trip.user_id %> </h4>
-<%= link_to "Delete", @map_trip, :method => :delete %>
 <div id="content">
   <div id="map"></div>
-   
   <div class="galleria">
   </div>
 </div>
+<div id="trip_info">
+  <h3><%= @map_trip.description %> </h3>
+  <h4> By: <%= @map_trip.user_id %> </h4>
+</div>
+<%= link_to "Delete", @map_trip, :method => :delete %>
   
   <script>
     $(document).ready(function() {
@@ -26,7 +24,7 @@
 
         imageData.push(
         { 
-          image: "<%= @map_trip.map_photos[index].map_photo.url(:original) %>", 
+          image: "<%= @map_trip.map_photos[index].map_photo.url(:big) %>", 
           latitude: "<%= @map_trip.map_photos[index].latitude %>", 
           longitude: "<%= @map_trip.map_photos[index].longitude %>",
           description: "<%= @map_trip.map_photos[index].description %>",
@@ -71,7 +69,8 @@
       Galleria.run('.galleria', { 
         dataSource: imageData,
         showCounter: true,
-        thumbnails: false
+        thumbnails: false,
+
       });
 
       Galleria.ready(function(options) {

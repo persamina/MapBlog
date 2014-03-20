@@ -65,6 +65,20 @@
         var galleria = $(".galleria").data('galleria');
         galleria.show(e.layer.feature.properties["slideIndex"]);
       });
+      $(".show_hide_button").on("click", function(e) {
+        event.preventDefault();
+        var button = $(e.target);
+        var current_text = button.text();
+        if (current_text == "Show Photo Loader") {
+          button.text("Hide Photo Loader");
+          $("#photo_loader").show("medium");
+        }  else {
+          button.text("Show Photo Loader");
+          $("#photo_loader").hide("medium");
+          
+        }
+
+      });
 
       Galleria.run('.galleria', { 
         dataSource: imageData,
@@ -190,6 +204,8 @@
 
   </script>
 
+<br>
+<a href="" class="show_hide_button">Hide Photo Loader</a>
 <div class="container" id="photo_loader">
   <h3> Add Map Photos </h3>
   <%= form_for MapPhoto.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>

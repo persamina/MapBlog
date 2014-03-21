@@ -3,6 +3,7 @@ MapBlog::Application.routes.draw do
   resources :map_trips 
   resources :map_photos
   resources :users
+  resources :comments
   resource :session, :only => [ :new, :create, :destroy ]
 
   # The priority is based upon order of creation:

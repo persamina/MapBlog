@@ -1,0 +1,14 @@
+<div class="media">
+  <a class="pull-left" href="#">
+    <img src="http://s3-us-west-1.amazonaws.com/mapblog-dev/map_photos/map_photos/000/000/259/small/portrait_blank.jpg?1395424686"style="width: 32px; height: 32px; border: 0;">
+  </a>
+  <div class="media-body">
+    <p><%= @comment.comment_text %></p>
+    <% if @all_comments[@comment.id] %>
+      <% @all_comments[@comment.id].each do |comment| %>
+        <% @comment = comment %>
+        <%= render :partial => 'layouts/sub_comment' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -9,17 +9,19 @@
   <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
 </head>
 <body>
-  <% if current_user %>
-    <%= button_to "Sign Out", session_url, method: :delete %>
-  <% else %>
-    <a href="<%= new_session_url %>">Sign In</a>
-    <a href="<%= new_user_url %>">Sign Up</a>
-  <% end %>
-  <% if flash[:errors] %>
-    <% flash[:errors].each do |error| %>
-      <h5> <%= error %> </h5>
+  <div class="container">
+    <% if current_user %>
+      <%= button_to "Sign Out", session_url, method: :delete %>
+    <% else %>
+      <a href="<%= new_session_url %>">Sign In</a>
+      <a href="<%= new_user_url %>">Sign Up</a>
     <% end %>
-  <% end %>
-  <%= yield %>
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+        <h5> <%= error %> </h5>
+      <% end %>
+    <% end %>
+    <%= yield %>
+  </div>
 </body>
 </html>

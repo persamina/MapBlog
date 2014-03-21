@@ -1,0 +1,6 @@
+<form action="<%= comments_url %>" method="POST">
+  <input type="hidden" name="comment[map_photo_id]" value="<%= @map_photo.id %>">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="textarea" name="comment[comment_text]" placeholder="Enter Comment Here">
+  <input type="submit" value="Add Comment">
+</form>

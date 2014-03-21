@@ -2,14 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .galleria {
-  height: 525px;
-  width: 700px;
+  height: 468px;
+  width: 624px;
   border: 0px solid #d8d8d8;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   background-color: #fff;
   border-bottom-width: 3px;
-  margin: 2px;
   float: left;
 }
 
@@ -23,13 +22,12 @@
 
 
 #map { 
-  border: 1px solid #d8d8d8;
+  border: 0px solid #d8d8d8;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   background-color: #fff;
   border-bottom-width: 3px;
-  margin: 2px;
   float: left;
-  height: 525px; 
-  width: 525px;
+  height: 468px; 
+  width: 468px;
 }

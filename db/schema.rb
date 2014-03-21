@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140206185003) do
+ActiveRecord::Schema.define(:version => 20140320163047) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "comment_text"
+    t.integer  "map_photo_id"
+    t.integer  "parent_comment_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "map_photos", :force => true do |t|
     t.string   "description"

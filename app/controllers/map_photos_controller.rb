@@ -9,6 +9,7 @@ class MapPhotosController < ApplicationController
 
   def show
     @map_photo = MapPhoto.find(params[:id])
+    @all_comments = @map_photo.comments_by_parent_id
     respond_to do |format|
       format.html { render :show }
       format.json { render :showRABL }

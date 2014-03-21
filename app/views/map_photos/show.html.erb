@@ -1,11 +1,37 @@
 <h1> A Map Photo </h1>
-<img src="<%= @map_photo.map_photo.url(:big) %>" id="img1" exif="true" name="ladeda">
-<div id="map"></div>
+<div class="row">
+  <div class="span6">
+    <div id="map"></div>
+  </div>
+  <div class="span6">
+    <img src="<%= @map_photo.map_photo.url(:big) %>" id="img1" exif="true" name="ladeda">
+  </div>
+</div>
 <%= link_to "Delete", @map_photo, :method => :delete %>
+<div id="comments">
+  <h4> Comments</h4>
+  <ul class="media-list">
+    <% @all_comments = @map_photo.comments_by_parent_id %>
+    <% if !@all_comments.empty? %>
+      <% @all_comments[nil].each do |comment| %>
+        <% @comment = comment %>
+        <%= render :partial => 'layouts/comment' %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+<%= render :partial => 'layouts/add_comment' %>
+
 <script>
   $(document).ready(function() {
     var map = L.map('map').setView([<%= @map_photo.latitude %>, <%= @map_photo.longitude %>], 14);
     var layer = L.mapbox.tileLayer('<%= ENV["MAPBOX_MAP_ID"] %>').addTo(map);
     var photo_marker = L.marker([<%= @map_photo.latitude %>, <%= @map_photo.longitude %>]).addTo(map);
+
+    $("a.add_comment").on("click", function(e) {
+      e.preventDefault();
+
+      
+    });
   }); 
 </script>

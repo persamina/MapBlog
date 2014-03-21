@@ -1,15 +1,15 @@
 <h1><%= @map_trip.title %></h1>
-<div id="content">
-  <div id="map"></div>
-  <div class="galleria">
+<div class="row">
+  <div class="span5">
+    <div id="map"></div>
+  </div>
+  <div class="span7">
+    <div class="galleria">
   </div>
 </div>
 <div id="trip_info">
-  <h3><%= @map_trip.description %> </h3>
-  <h4> By: <%= @map_trip.user_id %> </h4>
+  <h4><%= @map_trip.description %> <%= link_to "Delete", @map_trip, :method => :delete, :class=> "btn" %> </h4>
 </div>
-<%= link_to "Delete", @map_trip, :method => :delete %>
-  
   <script>
     $(document).ready(function() {
       var map = L.mapbox.map('map');
@@ -205,8 +205,9 @@
 
   </script>
 
-<br>
-<a href="#" class="show_hide_button">Hide Photo Loader</a>
+  <div id="comments">
+  </div>
+<a href="" class="show_hide_button btn">Hide Photo Loader</a>
 <div class="container" id="photo_loader">
   <h3> Add Map Photos </h3>
   <%= form_for MapPhoto.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>

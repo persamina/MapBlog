@@ -4,7 +4,7 @@ class MapPhoto < ActiveRecord::Base
 
   has_attached_file :map_photo, :styles => {
     :big => "700x700>",
-    :small => "75x75#"
+    :small => "64x64#"
   }
 
   before_save :load_exif
@@ -26,6 +26,17 @@ class MapPhoto < ActiveRecord::Base
     decimal_coordinate += dms_parts[3][0...-1].to_f / 3600
     decimal_coordinate *= -1 if dms_parts[4] == "S" || dms_parts[4] == "W" 
     decimal_coordinate
+  end
+
+  def comments_by_parent_id
+    comments = Comment.where("map_photo_id = ?", self.id)
+    comment_hash = Hash.new() 
+    comments.each do |comment|
+      parent_id = comment.parent_comment_id
+      comment_hash[parent_id] = Array.new() if comment_hash[parent_id] == nil
+      comment_hash[parent_id].push(comment)
+    end
+    comment_hash
   end
 
 end

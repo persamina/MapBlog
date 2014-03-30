@@ -6,7 +6,6 @@
     <p><%= comment.comment_text %></p>
     <% if (groupedComments[comment.id]) { %>
       <% groupedComments[comment.id].forEach(function(subComment) { %>
-        <%= var renderdContent =  subCommentTemplate({ comment: subComment, groupedComments: groupedComments, subCommentTemplate: subCommentTemplate }); %>
       <% }); %>
     <% } %>
   </div>

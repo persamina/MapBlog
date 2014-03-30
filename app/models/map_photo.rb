@@ -1,6 +1,7 @@
 class MapPhoto < ActiveRecord::Base
-  attr_accessible :description, :map_photo, :latitude, :longitude, :date_taken
-  belongs_to :map_trip
+  attr_accessible :description, :map_photo, :latitude, :longitude, :date_taken, :map_trip_id
+  belongs_to :map_trip, inverse_of: :map_photos
+  has_many :comments, :dependent => :destroy, inverse_of: :map_photo
 
   has_attached_file :map_photo, :styles => {
     :big => "700x700>",

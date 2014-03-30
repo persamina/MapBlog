@@ -17,4 +17,13 @@
 //= require jquery.exif
 //= require galleria-1.3.5.min
 //= require galleria.classic.min
+//= require underscore
+//= require backbone
+//= require jquery.serializeJSON.min
+//= require map_blog
+//= require_tree ../templates
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
 //= require_tree .

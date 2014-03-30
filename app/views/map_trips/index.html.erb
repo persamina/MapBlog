@@ -1,5 +1,7 @@
-<h1>Map Trips</h1>
-<% @map_trips.each do |map_trip| %>
-  <a href="<%=map_trip_url(map_trip) %>"><%= map_trip.title %></a>
-<% end %>
+<!-- Removed all whitespace so when checking in backbone initialize I don't see any whitespace -->
+<script type="application/json" id="map-trips-data"><%= (render('map_trips/indexJSON', :formats => [:json], :handlers => [:rabl])).html_safe %></script>
+
+<!-- Removed all whitespace so when checking in backbone initialize I don't see any whitespace -->
+<script type="application/json" id="user-data"><%= ((render('users/user', :formats => [:json], :handlers => [:rabl])).html_safe)  if @current_user %></script>
+<div class="content"></div>
 

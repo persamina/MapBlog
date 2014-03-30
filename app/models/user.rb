@@ -1,11 +1,16 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password
+  attr_accessible :email, :password, :username, :user_photo
   attr_reader :password
+
+  has_attached_file :user_photo, :styles => {
+    :small => "64x64#"
+  }, :default_url => "http://s3-us-west-1.amazonaws.com/mapblog-dev/map_photos/map_photos/000/000/259/small/portrait_blank.jpg?1395424686"
 
   validates :email, :presence => true
   validates :password, :length => { :minimum => 5, :allow_nil => true }
   validates :email, :uniqueness => true
   has_many :map_trips, :dependent => :destroy, :inverse_of => :user
+  has_many :comments, :dependent => :destroy, :inverse_of => :user
 
   before_validation :remove_whitespace
 

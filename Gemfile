@@ -8,8 +8,11 @@ gem 'rails', '3.2.14'
 #postgres
 gem 'pg'
 
-#extracting exif data
+#extracting exif data 
+#in order to use this, the command line exiftool must be installed https://github.com/janfri/mini_exiftool
 gem 'mini_exiftool'
+
+gem 'backbone-on-rails'
 
 # photos
 gem 'paperclip'

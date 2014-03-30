@@ -1,4 +1,5 @@
 collection @map_photo, :root => "files", :object_root => false
+node(:id) {@map_photo.id}
 node(:name) {@map_photo.map_photo_file_name}
 node(:size) {@map_photo.map_photo_file_size}
 node(:url) {@map_photo.map_photo.url(:big)}

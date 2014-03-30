@@ -20,7 +20,6 @@
   clear: both;
 }
 
-
 #map { 
   border: 0px solid #d8d8d8;
   -webkit-border-radius: 10px;
@@ -30,4 +29,29 @@
   float: left;
   height: 468px; 
   width: 468px;
+}
+
+h5.comment-username {
+  margin: 0;
+}
+
+p.comment-paragraph {
+  margin: 0;
+}
+img.comment-image {
+  width: 32px;
+  height: 32px;
+  margin: 0px 0px 0px 0px;
+  border: 0px solid #d8d8d8;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+
+textarea.new_comment {
+  margin: 0;
+}
+
+li.media {
+  margin-top: 10px;
 }

@@ -1,9 +1,19 @@
 class MapTripsController < ApplicationController
   layout "map"
+  before_filter :require_login, :except => [:show, :index]
+  respond_to :json
+
+  def require_login 
+    redirect_to new_session_url unless current_user
+  end
 
   def index
-    @map_trips = MapTrip.all
-    render :index
+    @map_trips = MapTrip.includes(:map_photos => {:comments => :user } ).where(:user_id => current_user.id) if current_user
+    @current_user = current_user
+    respond_to do |format|
+    format.html { render :index }
+    format.json { render :indexJSON }
+    end
   end
 
   def new
@@ -24,9 +34,10 @@ class MapTripsController < ApplicationController
 
   def show
     @map_trip = MapTrip.find(params[:id])
-    respond_to do |format|
-      format.html { render :show }
-      format.json { render :showRABL }
+    if @map_trip
+      render :showRABL 
+    else
+      render 422
     end
   end
 

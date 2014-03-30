@@ -1,4 +1,4 @@
-<h1><%= @map_trip.title %></h1>
+<h1><%= mapTrip.escape("title") %></h1>
 <div class="row">
   <div class="span5">
     <div id="map"></div>
@@ -8,109 +8,14 @@
   </div>
 </div>
 <div id="trip_info">
-  <h4><%= @map_trip.description %> <%= link_to "Delete", @map_trip, :method => :delete, :class=> "btn" %> </h4>
+  <h4><%= mapTrip.escape("description") %> </h4>
 </div>
   <script>
     $(document).ready(function() {
-      var map = L.mapbox.map('map');
-      L.mapbox.tileLayer('<%= ENV["MAPBOX_MAP_ID"] %>').addTo(map);
-
-      var geoJSON = [];
-      var imageData = [];
       var selectedColor = "#a0e5ce";
-      var desselectedColor = "#1C625E";
+      var deselectedColor = "#1C625E";
 
-      <% (0...@map_trip.map_photos.length).each do |index| %>
-
-        imageData.push(
-        { 
-          image: "<%= @map_trip.map_photos[index].map_photo.url(:big) %>", 
-          latitude: "<%= @map_trip.map_photos[index].latitude %>", 
-          longitude: "<%= @map_trip.map_photos[index].longitude %>",
-          description: "<%= @map_trip.map_photos[index].description %>",
-          slideIndex: <%= index %>,
-          deleteUrl: "<%= map_photo_url(@map_trip.map_photos[index]) %>"
-        });
-
-        <% if @map_trip.map_photos[index].longitude != nil && @map_trip.map_photos[index].latitude != nil %>
-          var genericGeoJSON = {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [<%= @map_trip.map_photos[index].longitude %>, <%= @map_trip.map_photos[index].latitude %>]
-            },
-            properties: {
-              //title: 'Marker Two',
-              'marker-color': desselectedColor,
-              slideIndex: <%= index %>
-            }
-          };
-          geoJSON.push(genericGeoJSON);
-        <% end %>
-      <% end %>
-      <% if @map_trip.map_photos.count > 0 %>
-        map.featureLayer.setGeoJSON(geoJSON); 
-        map.fitBounds(map.featureLayer.getBounds());
-      <% end %>
-
-
-      if(<%= @map_trip.map_photos.length ==  0 %>)
-      { 
-        $("#content").css("display", "none");
-      } 
-
-
-      map.featureLayer.on("click", function(e) {
-        setColors(e.latlng.lat, e.latlng.lng);
-        var galleria = $(".galleria").data('galleria');
-        galleria.show(e.layer.feature.properties["slideIndex"]);
-      });
-      $("a.show_hide_button").on("click", function(e) {
-        e.preventDefault();
-
-        var button = $(e.target);
-        var current_text = button.text();
-        if (current_text == "Show Photo Loader") {
-          button.text("Hide Photo Loader");
-          $("#photo_loader").show("medium");
-        }  else {
-          button.text("Show Photo Loader");
-          $("#photo_loader").hide("medium");
-          
-        }
-
-      });
-
-      Galleria.run('.galleria', { 
-        dataSource: imageData,
-        showCounter: true,
-        thumbnails: false,
-
-      });
-
-      Galleria.ready(function(options) {
-      });
-
-      Galleria.on('image', function(e) {
-        setColors(e.galleriaData.latitude, e.galleriaData.longitude);
-      });
-
-      var setColors = function(latitude, longitude) 
-      {
-        for (var i = 0; i < geoJSON.length; i++)
-        {
-          if (latitude == geoJSON[i].geometry.coordinates[1] && 
-          longitude == geoJSON[i].geometry.coordinates[0])
-          {
-            geoJSON[i].properties["marker-color"] = selectedColor; 
-            map.panTo([geoJSON[i].geometry.coordinates[1], geoJSON[i].geometry.coordinates[0]])
-          } else {
-            geoJSON[i].properties["marker-color"] = desselectedColor;
-          }
-        }
-        map.featureLayer.setGeoJSON(geoJSON); 
-      }
-
+      /*
       $('#fileupload').bind('fileuploaddestroy', function(e, data) {
         var galleria = $(".galleria").data('galleria');
         var numImages = galleria.getDataLength();
@@ -153,7 +58,7 @@
               coordinates: [data.result.files[0].longitude, data.result.files[0].latitude]
             },
             properties: {
-              'marker-color': desselectedColor,
+              'marker-color': deselectedColor,
               slideIndex: galleria.getDataLength() 
             }
           };
@@ -192,6 +97,7 @@
         map.fitBounds(map.featureLayer.getBounds());
         
       });
+      */
     }); 
 
     var fileUploadErrors = {
@@ -205,13 +111,16 @@
 
   </script>
 
-  <div id="comments">
+  <div class="comments">
+    <ul class="media-list comments">
+    </ul>
   </div>
 <a href="" class="show_hide_button btn">Hide Photo Loader</a>
+
 <div class="container" id="photo_loader">
   <h3> Add Map Photos </h3>
-  <%= form_for MapPhoto.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
-    <input type="hidden" name="map_photo[map_trip_id]" value="<%= params[:id] %>">
+  <form accept-charset="UTF-8" action="/map_photos" class="new_map_photo" enctype="multipart/form-data" id="fileupload" method="post">
+    <input type="hidden" name="map_photo[map_trip_id]" value="<%= mapTrip.id %>">
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
       <div class="span7">
@@ -219,7 +128,7 @@
         <span class="btn btn-success fileinput-button">
           <i class="icon-plus icon-white"></i>
           <span>Add files...</span>
-          <%= f.file_field :map_photo %>
+          <input id="map_photo_map_photo" name="map_photo[map_photo]" type="file">
         </span>
         <button type="submit" class="btn btn-primary start">
           <i class="icon-upload icon-white"></i>
@@ -248,35 +157,8 @@
     <!-- The table listing the files available for upload/download -->
     <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
     </table>
-  <% end %>
+  </form>
 </div>
-
-<script>
-/*  var fileUploadErrors = {
-    maxFileSize: 'File is too big',
-    minFileSize: 'File is too small',
-    acceptFileTypes: 'Filetype not allowed',
-    maxNumberOfFiles: 'Max number of files exceeded',
-    uploadedBytes: 'Uploaded bytes exceed file size',
-    emptyResult: 'Empty file upload result'
-  };
-  $(document).ready(function() {
-    $('#fileupload').bind('fileuploaddone', function(e, data) {
-      console.log('Processing done.');
-      
-      var newImage = $("<img src=\"" + data.result.files[0].url + "\" exif='true' latitude=\"" + data.result.files[0].latitude + "\" longitude=\"" + data.result.files[0].longitude+ "\" >");
-      
-      
-      var galleria = $(".galleria").data('galleria');
-      galleria.push({ image: data.result.files[0].url, original: newImage[0]});
-
-      //console.log(data.result.files[0]);
-    });
-
-  });
-  */
-
-</script>
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
@@ -292,8 +174,7 @@
           <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
         </td>
         <td class="description"><input name="map_photo[description]" placeholder="Description"></input></td>
-        <td class="map_trip_id"><input type="hidden" name="map_trip_id" value="<%= @map_trip.id %>"></input></td>
-        <td class="authenticity_token"><input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"></td>
+        <td class="map_trip_id"><input type="hidden" name="map_trip_id" value="<%= mapTrip.id %>"></input></td>
         <td class="start">{% if (!o.options.autoUpload) { %}
           <button class="btn btn-primary">
             <i class="icon-upload icon-white"></i>
@@ -347,7 +228,7 @@
       // Initialize the jQuery File Upload widget:
       $('#fileupload').fileupload();
       // Load existing files:
-      var mapTripUrl = "<%= map_trip_url(@map_trip) %>"
+      var mapTripUrl = "/map_trips/" + "<%= mapTrip.id%>"
       //$.getJSON($('#fileupload').prop('action'), function (files) {
       $.getJSON(mapTripUrl, function (files) {
         console.log(files);

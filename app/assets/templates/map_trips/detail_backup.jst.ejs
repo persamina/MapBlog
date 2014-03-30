@@ -1,4 +1,4 @@
-<h1><%= @map_trip.title %></h1>
+<h1><%= mapTrip.escape("title") %></h1>
 <div class="row">
   <div class="span5">
     <div id="map"></div>
@@ -8,53 +8,53 @@
   </div>
 </div>
 <div id="trip_info">
-  <h4><%= @map_trip.description %> <%= link_to "Delete", @map_trip, :method => :delete, :class=> "btn" %> </h4>
+  <h4><%= mapTrip.escape("description") %> </h4>
 </div>
   <script>
     $(document).ready(function() {
       var map = L.mapbox.map('map');
-      L.mapbox.tileLayer('<%= ENV["MAPBOX_MAP_ID"] %>').addTo(map);
+      L.mapbox.tileLayer('persamina.hejgkefp').addTo(map);
 
       var geoJSON = [];
       var imageData = [];
       var selectedColor = "#a0e5ce";
-      var desselectedColor = "#1C625E";
+      var deselectedColor = "#1C625E";
 
-      <% (0...@map_trip.map_photos.length).each do |index| %>
+      <% for (var index= 0; index < mapTrip.get("map_photos").length; index++) { %>
 
         imageData.push(
         { 
-          image: "<%= @map_trip.map_photos[index].map_photo.url(:big) %>", 
-          latitude: "<%= @map_trip.map_photos[index].latitude %>", 
-          longitude: "<%= @map_trip.map_photos[index].longitude %>",
-          description: "<%= @map_trip.map_photos[index].description %>",
+          image: "<%= mapTrip.get("map_photos")[index].url %>", 
+          latitude: "<%= mapTrip.get("map_photos")[index].latitude %>", 
+          longitude: "<%= mapTrip.get("map_photos")[index].longitude %>",
+          description: "<%= mapTrip.get("map_photos")[index].description %>",
           slideIndex: <%= index %>,
-          deleteUrl: "<%= map_photo_url(@map_trip.map_photos[index]) %>"
-        });
+          deleteUrl: "<%= mapTrip.get("map_photos")[index].delete_url %>"
+        }
 
-        <% if @map_trip.map_photos[index].longitude != nil && @map_trip.map_photos[index].latitude != nil %>
+        <% if (mapTrip.get("map_photos")[index].longitude != null && mapTrip.get("map_photos")[index].latitude != null ) { %>
           var genericGeoJSON = {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [<%= @map_trip.map_photos[index].longitude %>, <%= @map_trip.map_photos[index].latitude %>]
+              coordinates: [<%= mapTrip.get("map_photos")[index].longitude %>, <%= mapTrip.get("map_photos")[index].latitude %>]
             },
             properties: {
               //title: 'Marker Two',
-              'marker-color': desselectedColor,
+              'marker-color': deselectedColor,
               slideIndex: <%= index %>
             }
           };
           geoJSON.push(genericGeoJSON);
-        <% end %>
-      <% end %>
-      <% if @map_trip.map_photos.count > 0 %>
+        <% }%>
+      <% }); %>
+      <% if mapTrip.get("map_photos").length > 0 %>
         map.featureLayer.setGeoJSON(geoJSON); 
         map.fitBounds(map.featureLayer.getBounds());
       <% end %>
 
 
-      if(<%= @map_trip.map_photos.length ==  0 %>)
+      if(<%= mapTrip.get("map_photos").length ==  0 %>)
       { 
         $("#content").css("display", "none");
       } 
@@ -105,7 +105,7 @@
             geoJSON[i].properties["marker-color"] = selectedColor; 
             map.panTo([geoJSON[i].geometry.coordinates[1], geoJSON[i].geometry.coordinates[0]])
           } else {
-            geoJSON[i].properties["marker-color"] = desselectedColor;
+            geoJSON[i].properties["marker-color"] = deselectedColor;
           }
         }
         map.featureLayer.setGeoJSON(geoJSON); 
@@ -153,7 +153,7 @@
               coordinates: [data.result.files[0].longitude, data.result.files[0].latitude]
             },
             properties: {
-              'marker-color': desselectedColor,
+              'marker-color': deselectedColor,
               slideIndex: galleria.getDataLength() 
             }
           };
@@ -292,7 +292,7 @@
           <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
         </td>
         <td class="description"><input name="map_photo[description]" placeholder="Description"></input></td>
-        <td class="map_trip_id"><input type="hidden" name="map_trip_id" value="<%= @map_trip.id %>"></input></td>
+        <td class="map_trip_id"><input type="hidden" name="map_trip_id" value="<%= mapTrip.id %>"></input></td>
         <td class="authenticity_token"><input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"></td>
         <td class="start">{% if (!o.options.autoUpload) { %}
           <button class="btn btn-primary">
@@ -347,7 +347,7 @@
       // Initialize the jQuery File Upload widget:
       $('#fileupload').fileupload();
       // Load existing files:
-      var mapTripUrl = "<%= map_trip_url(@map_trip) %>"
+      var mapTripUrl = "<%= map_trip_url(mapTrip.id) %>"
       //$.getJSON($('#fileupload').prop('action'), function (files) {
       $.getJSON(mapTripUrl, function (files) {
         console.log(files);

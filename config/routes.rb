@@ -1,10 +1,12 @@
 MapBlog::Application.routes.draw do
 
   resources :map_trips 
-  resources :map_photos
+  resources :map_photos, :only => [:create, :update, :destroy]
   resources :users
-  resources :comments
+  resources :comments, :only => [:show, :create, :update, :destroy]
   resource :session, :only => [ :new, :create, :destroy ]
+
+  root to: "map_trips#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

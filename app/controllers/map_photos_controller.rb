@@ -1,6 +1,6 @@
 class MapPhotosController < ApplicationController
   layout "map"
-  respond_to :html, :json
+  respond_to :json
 
   def index
     @map_photos = MapPhoto.all
@@ -24,7 +24,6 @@ class MapPhotosController < ApplicationController
   def create
     @map_photo = MapPhoto.new(params[:map_photo])
     @map_photo.user_id = current_user.id if current_user
-    @map_photo.map_trip_id = params[:map_trip_id]
     if @map_photo.save
       respond_to do |format|
         format.html { redirect_to map_photos_url }

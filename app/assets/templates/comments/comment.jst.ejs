@@ -1,0 +1,9 @@
+<li class="media">
+  <a class="pull-left" href="#">
+    <img class="comment-image" src="<%= comment.get("user").get("thumbnail_url") %>" >
+  </a>
+  <div class="media-body">
+    <h5 class="comment-username"><%= comment.get("user").get("username") %></h5>
+    <p class="comment-paragraph"><%= comment.get("comment_text") %></p>
+  </div>
+</li>

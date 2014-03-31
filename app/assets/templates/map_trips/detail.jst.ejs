@@ -226,7 +226,10 @@
 <script type="text/javascript" charset="utf-8">
   $(function () {
       // Initialize the jQuery File Upload widget:
-      $('#fileupload').fileupload();
+      $('#fileupload').fileupload({
+        limitMultiFileUploads: 3,
+        limitConcurrentUploads: 3 
+      });
       // Load existing files:
       var mapTripUrl = "/map_trips/" + "<%= mapTrip.id%>"
       //$.getJSON($('#fileupload').prop('action'), function (files) {

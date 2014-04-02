@@ -4,10 +4,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    debugger
     @user = User.new(params[:user])
     if @user.save
-      redirect_to new_session_url
+      render :userJFU
     else
       flash[:errors] = @user.errors.full_messages
       render :new

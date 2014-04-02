@@ -1,4 +1,8 @@
 <div class="map_trip" data-map-trip-id=<%=map_trip.id%>>
+  <img src=""></img>
   <a class="map_trip_link" href="map_trips#/<%= map_trip.id %>"><%= map_trip.escape("title") %></a>
-  <hr>
+  <div class="map_trip_buttons">
+    <a href="#" class="delete_map_trip" data-map-trip-id="<%=map_trip.id %>"><i class="icon-remove"></i></a>
+  </div>
+  <hr class="map_photo_divide">
 </div>

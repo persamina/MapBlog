@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140328225532) do
+ActiveRecord::Schema.define(:version => 20140331204006) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment_text"
@@ -38,11 +38,12 @@ ActiveRecord::Schema.define(:version => 20140328225532) do
   end
 
   create_table "map_trips", :force => true do |t|
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "title"
     t.string   "description"
     t.integer  "user_id"
+    t.boolean  "shared",      :default => false
   end
 
   create_table "sessions", :force => true do |t|

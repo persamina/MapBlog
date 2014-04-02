@@ -25,7 +25,7 @@ class MapTripsController < ApplicationController
     @map_trip = MapTrip.new(params[:map_trip])
     @map_trip.user_id = current_user.id if current_user
     if @map_trip.save
-      redirect_to map_trip_url(@map_trip)
+      render :showRABL 
     else
       flash[:errors] = @map_trip.errors.full_messages
       render :new
@@ -43,8 +43,13 @@ class MapTripsController < ApplicationController
 
   def destroy
     @map_trip = MapTrip.find(params[:id])
-    @map_trip.destroy
-    redirect_to map_photos_url
+    if @map_trip
+      @map_trip.destroy 
+      render :showRABL
+    else
+      render 422
+    end
+
   end
 
 end

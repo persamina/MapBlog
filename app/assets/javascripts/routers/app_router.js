@@ -5,14 +5,14 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
   },
 
   routes: {
-    "": "showIndex",
+    "": "showMapTripIndex",
     "signin": "showSignIn",
-    "new": "showNew",
-    ":id": "showDetail"
+    "new": "showNewMapTrip",
+    ":id": "showMapTripDetail",
+    "users/new": "showNewUser"
   },
 
-  showIndex: function() {
-    console.log("showIndex");
+  showMapTripIndex: function() {
     if (MapBlog.currentUser.get("id") ) {
       var mapTripIndex = new MapBlog.Views.MapTripIndex({
         collection: MapBlog.mapTrips
@@ -23,7 +23,7 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
     }
   },
 
-  showDetail: function(id) {
+  showMapTripDetail: function(id) {
     var mapTrip = MapBlog.mapTrips.get(id);
     if (MapBlog.currentUser.get("id") ) {
       var mapTripDetail = new MapBlog.Views.MapTripDetail({
@@ -42,8 +42,15 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
     this._swapView(signIn.render().$el);
   },
 
-  showNew: function() {
+  showNewMapTrip: function() {
+    var mapTripNew = new MapBlog.Views.MapTripNew();
+    this._swapView(mapTripNew.render().$el);
+  },
 
+  showNewUser: function() {
+    var newUser = new MapBlog.Views.UserNew();
+    this._swapView(newUser.render().$el);
+    newUser.loadFUMethods();
   },
 
   _swapView: function(view) {

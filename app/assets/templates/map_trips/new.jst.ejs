@@ -1,4 +1,4 @@
-<h1>New Map Trip</h1>
+<h1><%= title %></h1>
 <h2> Where did you go? </h2>
 <form class="new-map-trip-form">
 
@@ -9,8 +9,8 @@
   <br>
 
   <label>Sharing</label>
-  <input type="radio" name="map_trip[shared]" value=true> Publicly<br>
-  <input type="radio" name="map_trip[shared]" value=false checked >Privately<br>
+  <input type="radio" name="map_trip[shared]" value="true">Public<br>
+  <input type="radio" name="map_trip[shared]" value="false" checked>Private<br>
 
-  <input type="submit" value="Create New Map Trip!">
+  <input type="submit" value="<%= buttonText %>">
 </form>

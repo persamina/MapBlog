@@ -11,9 +11,23 @@ class MapTripsController < ApplicationController
     @map_trips = MapTrip.includes(:map_photos => {:comments => :user } ).where(:user_id => current_user.id) if current_user
     @current_user = current_user
     respond_to do |format|
-    format.html { render :index }
+    format.html do 
+      @public_map_trips = public_map_trips
+      render :index 
+    end 
     format.json { render :indexJSON }
     end
+  end
+
+  def public
+    @public_map_trips = public_map_trips
+    render :publicMapTripsJSON
+  end
+
+  def public_map_trips
+    # if no current_user then set user_id to -1 so we can get all public map trips
+    current_user == nil ? user_id = -1 : user_id = current_user.id
+    MapTrip.includes(:map_photos => {:comments => :user } ).where("user_id != ?", user_id).where("shared = true") 
   end
 
   def new
@@ -22,6 +36,8 @@ class MapTripsController < ApplicationController
   end
 
   def create
+    puts "params"
+    puts params
     @map_trip = MapTrip.new(params[:map_trip])
     @map_trip.user_id = current_user.id if current_user
     if @map_trip.save
@@ -36,6 +52,24 @@ class MapTripsController < ApplicationController
     @map_trip = MapTrip.find(params[:id])
     if @map_trip
       render :showRABL 
+    else
+      render 422
+    end
+  end
+
+  def showJFU
+    @map_trip = MapTrip.find(params[:map_trip_id])
+    if @map_trip
+      render :JFUShow
+    else
+      render 422
+    end
+  end
+
+  def update
+    @map_trip = MapTrip.find(params[:id])
+    if @map_trip.update_attributes(params[:map_trip])
+      render :showRABL
     else
       render 422
     end

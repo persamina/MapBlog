@@ -6,7 +6,6 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
     if @user
-      debugger
       # rabl uses @current_user
       @current_user = @user
       @session = Session.create(user_id:  @user.id)

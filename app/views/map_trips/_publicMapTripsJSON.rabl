@@ -1,4 +1,4 @@
-collection @map_trips, :object_root => false
+collection @public_map_trips, :object_root => false
 attributes :id, :title, :description, :shared, :user_id
 child(:map_photos, :object_root => false ) do 
   attributes :id, :description  

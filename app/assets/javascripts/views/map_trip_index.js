@@ -1,6 +1,8 @@
 MapBlog.Views.MapTripIndex = Backbone.View.extend({
-  initialize: function() {
+  initialize: function(options) {
+    this.public_collection = options.public_collection;
     this.listenTo(this.collection, "add remove change", this.render);
+    this.listenTo(this.public_collection, "add remove change", this.render);
   },
   template: JST["map_trips/index"],
   events: {
@@ -11,11 +13,19 @@ MapBlog.Views.MapTripIndex = Backbone.View.extend({
     var mapTripIndex = this;
     var renderedContent = this.template();
     this.$el.html(renderedContent);
+    $(".map_trips").empty();
+    $(".public_map_trips").empty();
     this.collection.forEach(function(mapTrip) {
       var mapTripDetail = new MapBlog.Views.MapTripDetailList({
         model: mapTrip
       });
       mapTripIndex.$(".map_trips").append(mapTripDetail.render().$el);
+    });
+    this.public_collection.forEach(function(mapTrip) {
+      var mapTripDetail = new MapBlog.Views.MapTripDetailList({
+        model: mapTrip
+      });
+      mapTripIndex.$(".public_map_trips").append(mapTripDetail.render().$el);
     });
     return this;
   },
@@ -30,7 +40,6 @@ MapBlog.Views.MapTripIndex = Backbone.View.extend({
         console.log("successfully destroyed");
       }
     });
-    console.log(mapTripId);
   }
 
 });

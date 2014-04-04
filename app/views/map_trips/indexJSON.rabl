@@ -1,5 +1,5 @@
 collection @map_trips, :object_root => false
-attributes :id, :title, :description
+attributes :id, :title, :description, :shared, :user_id
 child(:map_photos, :object_root => false ) do 
   attributes :id, :description  
   node(:name) { |map_photo| map_photo.map_photo_file_name}

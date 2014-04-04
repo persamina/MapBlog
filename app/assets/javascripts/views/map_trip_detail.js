@@ -14,14 +14,19 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
   },
 
   template: JST["map_trips/detail"],
+  photo_loader: JST["map_trips/photo_loader"],
   commentTemplate: JST["comments/comment"],
   subCommentTemplate: JST["comments/sub_comment"],
   addCommentTemplate: JST["comments/add_comment"],
 
   render: function() {
+    var mapTripDetail = this;
     var renderedContent = this.template({ mapTrip: this.model });
     this.$el.html(renderedContent);
-    
+    if (this.model.get("user_id") == MapBlog.currentUser.get("id")) {
+      var photoLoader = this.photo_loader({mapTrip: this.model});
+      this.$("#photo_loader").append(photoLoader);
+    }
 
     return this;
   },
@@ -57,6 +62,8 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
       var galleria = $(".galleria").data('galleria');
       galleria.show(e.layer.feature.properties["slideIndex"]);
     });
+
+    this.initializeFileUpload();
 
     $('#fileupload').bind('fileuploaddone', function(e, data) {
       var galleria = $(".galleria").data('galleria');
@@ -134,6 +141,10 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
     });
 
   },
+  initializeFileUpload: function() {
+
+
+  },
   generateImageData: function(mapTrip) {
     //var galleriaData = [];
     //var deselectedColor = "#1C625E";
@@ -191,10 +202,12 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
     var mapTripDetail = this;
     $(".media-list.comments").empty();
     console.log("add comments");
+    $(".media-list.comments").hide();
     this.model.get("map_photos").models[currentPhotoData.index].get("comments").forEach(function(comment) {
       var renderedContent = mapTripDetail.commentTemplate({ comment: comment});
-      $(".media-list.comments").hide().append(renderedContent).fadeIn("slow");
+      $(".media-list.comments").append(renderedContent);
     });
+    $(".media-list.comments").fadeIn("slow");
     var addCommentHTML = this.addCommentTemplate();
     $(".media-list.comments").append(addCommentHTML);
 
@@ -215,7 +228,16 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
         wait: true,
         success: function(comment) {
           // add to current map_trip map_photo
-          MapBlog.mapTrips.findWhere({id: mapTripDetail.model.id}).get("map_photos").models[mapTripDetail.currentPhoto.index].get("comments").push(comment)
+          if( MapBlog.mapTrips.findWhere({id: mapTripDetail.model.id}))
+          {
+            MapBlog.mapTrips.findWhere({id: mapTripDetail.model.id})
+            .get("map_photos").models[mapTripDetail.currentPhoto.index]
+            .get("comments").push(comment)
+          } else {
+            MapBlog.publicMapTrips.findWhere({id: mapTripDetail.model.id})
+            .get("map_photos").models[mapTripDetail.currentPhoto.index]
+            .get("comments").push(comment)
+          }
 
           $("li.new_comment").remove();
           var renderedContent = mapTripDetail.commentTemplate({ comment: comment});

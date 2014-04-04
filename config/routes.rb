@@ -1,10 +1,20 @@
 MapBlog::Application.routes.draw do
 
-  resources :map_trips 
+  resources :map_trips  do
+    collection do 
+      get :public
+    end
+    get :showJFU
+  end
   resources :map_photos, :only => [:create, :update, :destroy]
   resources :users
   resources :comments, :only => [:show, :create, :update, :destroy]
   resource :session, :only => [ :new, :create, :destroy ]
+  
+  resource :public_map_trips do 
+  end
+
+
 
   root to: "map_trips#index"
 

@@ -8,6 +8,7 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
     "": "showMapTripIndex",
     "signin": "showSignIn",
     "new": "showNewMapTrip",
+    ":id/edit": "showEditMapTrip",
     ":id": "showMapTripDetail",
     "users/new": "showNewUser"
   },
@@ -15,7 +16,8 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
   showMapTripIndex: function() {
     if (MapBlog.currentUser.get("id") ) {
       var mapTripIndex = new MapBlog.Views.MapTripIndex({
-        collection: MapBlog.mapTrips
+        collection: MapBlog.mapTrips,
+        public_collection: MapBlog.publicMapTrips
       });
       this._swapView(mapTripIndex.render().$el);
     } else {
@@ -25,6 +27,7 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
 
   showMapTripDetail: function(id) {
     var mapTrip = MapBlog.mapTrips.get(id);
+    if (!mapTrip) { mapTrip = MapBlog.publicMapTrips.get(id); }
     if (MapBlog.currentUser.get("id") ) {
       var mapTripDetail = new MapBlog.Views.MapTripDetail({
         model: mapTrip
@@ -45,6 +48,12 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
   showNewMapTrip: function() {
     var mapTripNew = new MapBlog.Views.MapTripNew();
     this._swapView(mapTripNew.render().$el);
+  },
+
+  showEditMapTrip: function(id) {
+    var mapTrip = MapBlog.mapTrips.get(id);
+    var mapTripEdit= new MapBlog.Views.MapTripEdit({model: mapTrip });
+    this._swapView(mapTripEdit.render().$el);
   },
 
   showNewUser: function() {

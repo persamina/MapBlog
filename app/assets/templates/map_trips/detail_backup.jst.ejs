@@ -1,0 +1,251 @@
+<h1><%= mapTrip.escape("title") %></h1>
+<div class="row">
+  <div class="span5">
+    <div id="map"></div>
+  </div>
+  <div class="span7">
+    <div class="galleria">
+  </div>
+</div>
+<div id="trip_info">
+  <h4><%= mapTrip.escape("description") %> </h4>
+</div>
+  <script>
+    $(document).ready(function() {
+      var selectedColor = "#a0e5ce";
+      var deselectedColor = "#1C625E";
+
+      /*
+      $('#fileupload').bind('fileuploaddestroy', function(e, data) {
+        var galleria = $(".galleria").data('galleria');
+        var numImages = galleria.getDataLength();
+        var currentSlideIndex = galleria.getIndex();
+        for (var index = 0; index < numImages; index++)
+        {
+          var currentSlideData = galleria.getData(index)
+          if (currentSlideData.deleteUrl == data.url) 
+          {
+            galleria.splice(currentSlideData.slideIndex, 1);
+            break;
+          }
+        }
+        geoJSON.splice(index, 1);
+        map.featureLayer.setGeoJSON(geoJSON); 
+        if (index == currentSlideIndex && galleria.getDataLength() > 0) 
+        {
+          galleria.show(0);
+        }
+      });
+
+      $('#fileupload').bind('fileuploadsubmit', function (e, data) {
+        var inputs = data.context.find(':input');
+        if (inputs.filter('[required][value=""]').first().focus().length) {
+          data.context.find('button').prop('disabled', false);
+          return false;
+        }
+        data.formData = inputs.serializeArray();
+      });
+
+      $('#fileupload').bind('fileuploaddone', function(e, data) {
+        var galleria = $(".galleria").data('galleria');
+        
+        if(data.result.files[0].longitude != null || data.result.files[0].longitude  != null ) 
+        {
+          var imageGeoJSON = {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [data.result.files[0].longitude, data.result.files[0].latitude]
+            },
+            properties: {
+              'marker-color': deselectedColor,
+              slideIndex: galleria.getDataLength() 
+            }
+          };
+          geoJSON.push(imageGeoJSON);
+          map.featureLayer.setGeoJSON(geoJSON); 
+        }
+        var lat;
+        if (data.result.files[0].latitude != null)
+        {
+          lat = data.result.files[0].latitude.toString() ;
+        }
+
+        var lng;
+        if (data.result.files[0].longitude != null)
+        {
+          lng = data.result.files[0].longitude.toString() ;
+        }
+
+        var imageData = { 
+            image: data.result.files[0].url, 
+            latitude: lat,   
+            longitude: lng,  
+            description: data.result.files[0].description.toString(),
+            slideIndex: galleria.getDataLength(),
+            deleteUrl: data.result.files[0].delete_url
+        };
+        
+        if(galleria.getDataLength() == 0)
+        {
+          $("#content").css("display", "block");
+          galleria.load([ imageData ]);
+        } else {
+          galleria.push(imageData);
+        }
+
+        map.fitBounds(map.featureLayer.getBounds());
+        
+      });
+      */
+    }); 
+
+    var fileUploadErrors = {
+      maxFileSize: 'File is too big',
+      minFileSize: 'File is too small',
+      acceptFileTypes: 'Filetype not allowed',
+      maxNumberOfFiles: 'Max number of files exceeded',
+      uploadedBytes: 'Uploaded bytes exceed file size',
+      emptyResult: 'Empty file upload result'
+    };
+
+  </script>
+
+  <div class="comments">
+    <ul class="media-list comments">
+    </ul>
+  </div>
+<a href="" class="show_hide_button btn">Hide Photo Loader</a>
+
+<div class="container" id="photo_loader">
+  <h3> Add Map Photos </h3>
+  <form accept-charset="UTF-8" action="/map_photos" class="new_map_photo" enctype="multipart/form-data" id="fileupload" method="post">
+    <input type="hidden" name="map_photo[map_trip_id]" value="<%= mapTrip.id %>">
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div class="row fileupload-buttonbar">
+      <div class="span7">
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-success fileinput-button">
+          <i class="icon-plus icon-white"></i>
+          <span>Add files...</span>
+          <input id="map_photo_map_photo" name="map_photo[map_photo]" type="file">
+        </span>
+        <button type="submit" class="btn btn-primary start">
+          <i class="icon-upload icon-white"></i>
+          <span>Start upload</span>
+        </button>
+        <button type="reset" class="btn btn-warning cancel">
+          <i class="icon-ban-circle icon-white"></i>
+          <span>Cancel upload</span>
+        </button>
+        <button type="button" class="btn btn-danger delete">
+          <i class="icon-trash icon-white"></i>
+          <span>Delete</span>
+        </button>
+        <input type="checkbox" class="toggle">
+      </div>
+      <div class="span5">
+        <!-- The global progress bar -->
+        <div class="progress progress-success progress-striped active fade">
+          <div class="bar" style="width:0%;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- The loading indicator is shown during image processing -->
+    <div class="fileupload-loading"></div>
+    <br>
+    <!-- The table listing the files available for upload/download -->
+    <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+    </table>
+  </form>
+</div>
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+      <td class="preview"><span class="fade"></span></td>
+      <td class="name"><span>{%=file.name%}</span></td>
+      <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+      {% if (file.error) { %}
+        <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else if (o.files.valid && !i) { %}
+        <td>
+          <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+        </td>
+        <td class="description"><input name="map_photo[description]" placeholder="Description"></input></td>
+        <td class="map_trip_id"><input type="hidden" name="map_trip_id" value="<%= mapTrip.id %>"></input></td>
+        <td class="start">{% if (!o.options.autoUpload) { %}
+          <button class="btn btn-primary">
+            <i class="icon-upload icon-white"></i>
+            <span>{%=locale.fileupload.start%}</span>
+          </button>
+          {% } %}</td>
+        {% } else { %}
+        <td colspan="2"></td>
+        {% } %}
+      <td class="cancel">{% if (!i) { %}
+        <button class="btn btn-warning">
+          <i class="icon-ban-circle icon-white"></i>
+          <span>{%=locale.fileupload.cancel%}</span>
+        </button>
+        {% } %}</td>
+    </tr>
+    {% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+      {% if (file.error) { %}
+        <td></td>
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else { %}
+        <td class="preview">{% if (file.thumbnail_url) { %}
+          <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+          {% } %}</td>
+        <td class="name">
+          <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+        </td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        <td colspan="2"></td>
+        {% } %}
+      <td class="delete">
+        <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+          <i class="icon-trash icon-white"></i>
+          <span>{%=locale.fileupload.destroy%}</span>
+        </button>
+        <input type="checkbox" name="delete" value="1">
+      </td>
+    </tr>
+    {% } %}
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+      // Initialize the jQuery File Upload widget:
+      $('#fileupload').fileupload({
+        limitMultiFileUploads: 3,
+        limitConcurrentUploads: 3 
+      });
+      // Load existing files:
+      var mapTripUrl = "/map_trips/" + "<%= mapTrip.id%>"
+      //$.getJSON($('#fileupload').prop('action'), function (files) {
+      $.getJSON(mapTripUrl, function (files) {
+        console.log(files);
+        var fu = $('#fileupload').data('blueimpFileupload'), 
+          template;
+        fu._adjustMaxNumberOfFiles(-files.length);
+        template = fu._renderDownload(files)
+          .appendTo($('#fileupload .files'));
+        // Force reflow:
+        fu._reflow = fu._transition && template.length &&
+          template[0].offsetWidth;
+        template.addClass('in');
+        $('#loading').remove();
+        });
+
+      });
+    </script>

@@ -2,30 +2,38 @@ MapBlog.Views.MapTripNew = Backbone.View.extend({
   initialize: function() {
   },
   events: {
-    "submit .new-map-trip-form": "submit"
+    "submit .new-edit-map-trip-form": "submit"
   },
 
-  template: JST["map_trips/new"],
+  template: JST["map_trips/new_edit"],
 
   render: function() {
-    var renderedContent = this.template();
+    var newMapTripView = this;
+    this.model = new MapBlog.Models.MapTrip();
+    var renderedContent = this.template({
+      mapTrip: newMapTripView.model, 
+      title: "Create New Map Trip", 
+      buttonText: "Create Map Trip!",
+      publicCheckedValue: "",
+      privateCheckedValue: "checked"
+    });
     this.$el.html(renderedContent);
     return this;
   },
   submit: function(e) {
+    var newMapTripView = this;
     e.preventDefault();
     var newMapTripData = $(e.currentTarget).serializeJSON().map_trip;
-    var newMapTrip = new MapBlog.Models.MapTrip({
+    this.model = new MapBlog.Models.MapTrip({
       title: newMapTripData.title,
       description: newMapTripData.description,
       user_id: MapBlog.currentUser.id,
       shared: newMapTripData.shared
     });
-    newMapTrip.save({}, {
+    MapBlog.mapTrips.create(this.model, {
       wait: true,
-      success: function(model) {
-        var mapTripModel = new MapBlog.Models.MapTrip(model);
-        MapBlog.mapTrips.add([model])
+      success: function(mapTrip) {
+        newMapTripView.model = mapTrip;
       }
     });
     Backbone.history.navigate("", {trigger: true});

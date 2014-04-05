@@ -1,24 +1,23 @@
 <div class="transparent-background">
-  <h2><%= mapTrip.escape("title") %></h2>
+  <h2 class="standard-left-margin"><%= mapTrip.escape("title") %></h2>
   <div class="row">
     <div class="span5">
       <div id="map"></div>
     </div>
     <div class="span7">
-      <div class="galleria">
+      <div class="galleria"></div>
     </div>
   </div>
 
   <div id="trip_info">
-    <h4><%= mapTrip.escape("description") %> </h4>
+    <div class="description"> <%= mapTrip.escape("description") %> </div> 
+    <a class="btn btn-primary pull-right" href="#/<%= mapTrip.id %>/edit"><i class="fa fa-pencil"></i> Edit</a>
   </div>
-</div>
 
   <script>
     $(document).ready(function() {
       var selectedColor = "#a0e5ce";
       var deselectedColor = "#1C625E";
-
     }); 
 
     var fileUploadErrors = {
@@ -31,13 +30,14 @@
     };
 
   </script>
-  <a class="btn btn-primary pull-right" href="#/<%= mapTrip.id %>/edit">Edit</a>
 
   <div class="comments">
     <ul class="media-list comments">
     </ul>
   </div>
-<div class="container" id="photo_loader">
+<div class="row">
+  <div class="container span11" id="photo_loader">
+  </div>
 </div>
 </div>
 

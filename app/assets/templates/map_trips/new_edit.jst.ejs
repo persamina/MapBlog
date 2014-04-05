@@ -1,25 +1,27 @@
 <div class="span4">
 </div>
 <div class="span4 transparent-background new-map-trip-content">
-  <h2><%= title %></h2>
-  <h3> Where did you go? </h3>
-  <form class="new-edit-map-trip-form">
+  <div class="standard-padding">
+    <h2><%= title %></h2>
+    <h3> Where did you go? </h3>
+    <form class="new-edit-map-trip-form">
 
-    <input type="text" name="map_trip[title]" placeholder="title" value="<%= mapTrip.get("title") %>">
-    <br>
+      <input type="text" name="map_trip[title]" placeholder="title" value="<%= mapTrip.get("title") %>">
+      <br>
 
-    <input type="text" name="map_trip[description]" placeholder="description" value="<%= mapTrip.get("description") %>">
-    <br>
+      <input type="text" name="map_trip[description]" placeholder="description" value="<%= mapTrip.get("description") %>">
+      <br>
 
-    <fieldset name="sharing">
-    <legend><label>Sharing</label></legend>
-      <input type="radio" name="map_trip[shared]" value=true <%= publicCheckedValue %> >Public<br>
-      <input type="radio" name="map_trip[shared]" value=false <%= privateCheckedValue %>>Private<br>
-    </fieldset>
-    <br>
+      <fieldset name="sharing">
+      <legend><label>Sharing</label></legend>
+        <input type="radio" name="map_trip[shared]" value=true <%= publicCheckedValue %> >Public<br>
+        <input type="radio" name="map_trip[shared]" value=false <%= privateCheckedValue %>>Private<br>
+      </fieldset>
+      <br>
 
-    <input type="submit" value="<%= buttonText %>">
-  </form>
+      <input type="submit" value="<%= buttonText %>">
+    </form>
+  </div>
 </div>
 <div class="span4">
 </div>

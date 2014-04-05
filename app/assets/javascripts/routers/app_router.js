@@ -10,7 +10,8 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
     "new": "showNewMapTrip",
     ":id/edit": "showEditMapTrip",
     ":id": "showMapTripDetail",
-    "users/new": "showNewUser"
+    "users/new": "showNewUser",
+    "users/:id/edit": "showEditUser"
   },
 
   showMapTripIndex: function() {
@@ -60,6 +61,12 @@ MapBlog.Routers.AppRouter = Backbone.Router.extend({
     var newUser = new MapBlog.Views.UserNew();
     this._swapView(newUser.render().$el);
     newUser.loadFUMethods();
+  },
+
+  showEditUser: function() {
+    var editUser = new MapBlog.Views.UserEdit();
+    this._swapView(editUser.render().$el);
+    editUser.loadFUMethods();
   },
 
   _swapView: function(view) {

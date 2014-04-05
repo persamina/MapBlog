@@ -10,12 +10,20 @@
 </head>
 <body>
   <div class="container">
-    <% if current_user %>
-      <%= button_to "Sign Out", session_url, method: :delete %>
-    <% else %>
-      <a href="<%= new_session_url %>">Sign In</a>
-      <a href="<%= new_user_url %>">Sign Up</a>
-    <% end %>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="nav pull-left nav-left-content">
+          <h1>Map Blog</h1>
+        </div>
+        <div class="nav pull-right nav-buttons">
+        <% if current_user %>
+          <%= button_to "Sign Out", session_url, method: :delete %>
+        <% else %>
+          <a href="#signin"><i class="fa fa-sign-in"></i></a>
+        <% end %>
+        </div>
+      </div>
+    </div>
     <% if flash[:errors] %>
       <% flash[:errors].each do |error| %>
         <h5> <%= error %> </h5>

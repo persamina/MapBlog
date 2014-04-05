@@ -2,18 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .galleria {
-  height: 468px;
-  width: 624px;
+  height: 503px;
+  width: 670px;
   border: 0px solid #d8d8d8;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  background-color: #fff;
-  border-bottom-width: 3px;
-  float: left;
+
+}
+
+.galleria-container {
+  border: 0px;
 }
 
 #photo_loader {
   clear: both;
+  margin-left: 20px;
 }
 
 #trip_info {
@@ -21,13 +24,11 @@
 }
 
 #map { 
-  border: 0px solid #d8d8d8;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  background-color: #fff;
   border-bottom-width: 3px;
   float: left;
-  height: 468px; 
+  height: 503px; 
   width: 468px;
 }
 
@@ -60,4 +61,7 @@ div.map_trip_buttons {
   display: inline;
   float: right;
   vertical-align: middle;
+}
+div.comments {
+  margin-left: 20px;
 }

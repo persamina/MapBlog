@@ -12,7 +12,7 @@ MapBlog.Views.MapTripNew = Backbone.View.extend({
     this.model = new MapBlog.Models.MapTrip();
     var renderedContent = this.template({
       mapTrip: newMapTripView.model, 
-      title: "Create New Map Trip", 
+      title: "Create Map Trip", 
       buttonText: "Create Map Trip!",
       publicCheckedValue: "",
       privateCheckedValue: "checked"

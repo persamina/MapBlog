@@ -17,7 +17,6 @@ gem 'backbone-on-rails'
 # photos
 gem 'paperclip'
 gem 'aws-sdk'
-gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 #jquery File Upload
 gem 'jquery-fileupload-rails'
@@ -37,6 +36,9 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  gem 'twitter-bootstrap-rails'
+  gem 'font-awesome-less'
 end
 
 # To use ActiveModel has_secure_password

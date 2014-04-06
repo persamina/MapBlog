@@ -24,6 +24,7 @@ MapBlog.Views.SignIn = Backbone.View.extend({
       success: function(model, response, options) {
         MapBlog.currentUser.set(response.user);
         MapBlog.mapTrips.fetch();
+        MapBlog.publicMapTrips.fetch();
         var renderedContent = signInView.signOutTemplate({user: MapBlog.currentUser});
         $(".nav-buttons").html(renderedContent);
         Backbone.history.navigate("", {trigger: true});

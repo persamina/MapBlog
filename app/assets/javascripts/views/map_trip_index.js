@@ -13,8 +13,8 @@ MapBlog.Views.MapTripIndex = Backbone.View.extend({
     var mapTripIndex = this;
     var renderedContent = this.template();
     this.$el.html(renderedContent);
-    $(".map_trips").empty();
-    $(".public_map_trips").empty();
+    this.$(".map_trips").empty();
+    this.$(".public_map_trips").empty();
     this.collection.forEach(function(mapTrip) {
       var mapTripDetail = new MapBlog.Views.MapTripDetailList({
         model: mapTrip
@@ -22,10 +22,10 @@ MapBlog.Views.MapTripIndex = Backbone.View.extend({
       mapTripIndex.$(".map_trips").append(mapTripDetail.render().$el);
     });
     this.public_collection.forEach(function(mapTrip) {
-      var mapTripDetail = new MapBlog.Views.MapTripDetailList({
+      var publicMapTripDetail = new MapBlog.Views.MapTripDetailList({
         model: mapTrip
       });
-      mapTripIndex.$(".public_map_trips").append(mapTripDetail.render().$el);
+      mapTripIndex.$(".public_map_trips").append(publicMapTripDetail.render().$el);
     });
     return this;
   },

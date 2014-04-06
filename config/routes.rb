@@ -7,7 +7,9 @@ MapBlog::Application.routes.draw do
     get :showJFU
   end
   resources :map_photos, :only => [:create, :update, :destroy]
-  resources :users
+  resources :users, :only => [:create, :update, :destroy] do
+    get :showJFU
+  end
   resources :comments, :only => [:show, :create, :update, :destroy]
   resource :session, :only => [ :new, :create, :destroy ] do
     get :backbone_signout

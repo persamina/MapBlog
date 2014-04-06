@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  layout "map"
   def new
     render :new
   end

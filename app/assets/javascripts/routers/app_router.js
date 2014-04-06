@@ -1,7 +1,8 @@
 MapBlog.Routers.AppRouter = Backbone.Router.extend({
 
-  initialize: function($rootEl) {
+  initialize: function($rootEl, $navButtons) {
     this.$rootEl = $rootEl;
+    this.$navButtons = $navButtons;
   },
 
   routes: {

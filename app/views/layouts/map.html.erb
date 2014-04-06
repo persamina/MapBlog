@@ -17,7 +17,9 @@
         </div>
         <div class="nav pull-right nav-buttons">
         <% if current_user %>
-          <%= button_to "Sign Out", session_url, method: :delete %>
+          <img class="nav-img" src="<%= current_user.user_photo.url("small") %>"></img>
+          <p><%= current_user.username %></p>
+          <a class="sign-out-button" href="<%= backbone_signout_session_url %>"><i class="fa fa-sign-out sign-out-button"></i></a>
         <% else %>
           <a href="#signin"><i class="fa fa-sign-in"></i></a>
         <% end %>

@@ -33,7 +33,7 @@ window.MapBlog = {
       MapBlog.publicMapTrips.set(publicMapTripsData, {parse: true} ); 
     }
 
-    new MapBlog.Routers.AppRouter($(".content"));
+    new MapBlog.Routers.AppRouter($(".content"), $(".nav-buttons") );
     Backbone.history.start();
 
   }

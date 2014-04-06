@@ -4,7 +4,7 @@ MapBlog.Views.MapTripDetailList = Backbone.View.extend({
   },
   template: JST["map_trips/detail_list"],
   render: function() {
-    var renderedContent = this.template({ map_trip: this.model});
+    var renderedContent = this.template({ mapTrip: this.model});
     this.$el.html(renderedContent);
     return this;
   }

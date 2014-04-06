@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  layout "map"
   def new
     current_user ? (redirect_to map_trips_url) : (render :new)
   end
@@ -12,16 +13,19 @@ class SessionsController < ApplicationController
       session[:session_token] = @session.session_token
       respond_to do |format|
         format.html { redirect_to map_trips_url }
-        format.json { (render('users/_user', :formats => [:json], :handlers => [:rabl]))} 
+        format.json { render "users/_user" } 
       end
 
     end
+  end
+  def backbone_signout
+    destroy
   end
 
   def destroy
     if current_user
       logout_current_user!
     end
-    redirect_to new_session_url
+    redirect_to root_url
   end
 end

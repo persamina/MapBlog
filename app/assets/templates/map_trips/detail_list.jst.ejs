@@ -1,8 +1,10 @@
-<div class="map_trip" data-map-trip-id=<%=map_trip.id%>>
-  <img src=""></img>
-  <a class="map_trip_link" href="map_trips#/<%= map_trip.id %>"><%= map_trip.escape("title") %></a>
-  <div class="map_trip_buttons">
-    <a href="#" class="delete_map_trip" data-map-trip-id="<%=map_trip.id %>"><i class="icon-remove"></i></a>
+<div class="map_trip" data-map-trip-id=<%=mapTrip.id%>>
+  <% if(mapTrip.get("map_photos").models.length > 0) { %>
+    <img class="map-trip-img" src="<%= mapTrip.get("map_photos").models[0].get("thumbnail_url") %>"></img>
+  <% } %>
+  <a class="map-trip-link" href="map_trips#/<%= mapTrip.id %>"><%= mapTrip.escape("title") %></a>
+  <div class="map-trip-buttons">
+    <a href="#" class="delete-map-trip" data-map-trip-id="<%=mapTrip.id %>"><i class="fa fa-times"></i></a>
   </div>
-  <hr class="map_photo_divide">
+  <hr class="map-trip-divide">
 </div>

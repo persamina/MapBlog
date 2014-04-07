@@ -4,7 +4,9 @@
   <% } %>
   <a class="map-trip-link" href="map_trips#/<%= mapTrip.id %>"><%= mapTrip.escape("title") %></a>
   <div class="map-trip-buttons">
+    <% if(mapTrip.get("user_id") == MapBlog.currentUser.id) { %>
     <a href="#" class="delete-map-trip" data-map-trip-id="<%=mapTrip.id %>"><i class="fa fa-times"></i></a>
+    <% } %>
   </div>
   <hr class="map-trip-divide">
 </div>

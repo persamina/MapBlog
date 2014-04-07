@@ -1,44 +1,51 @@
-<div class="container" id="photo_loader">
-  <h3> Sign Up</h3>
-  <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="fileupload" method="post">
-    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-    <div class="row fileupload-buttonbar">
-      <div class="span3">
-        <input type="text" name="user[email]" placeholder="Email">
-        <br>
-        <input type="text" name="user[username]" placeholder="Username">
-        <br>
-        <input type="password" name="user[password]" placeholder="Password">
-        <br>
-        <!-- The fileinput-button span is used to style the file input field as button -->
-        <span class="btn btn-success fileinput-button">
-          <i class="icon-plus icon-white"></i>
-          <span>Select Photo</span>
-          <input id="map_photo_map_photo" name="user[user_photo]" type="file">
-        </span>
-        <button type="reset" class="btn btn-warning cancel">
-          <i class="icon-ban-circle icon-white"></i>
-          <span>Cancel upload</span>
-        </button>
-    <table class="table"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-    </table>
-        <button type="submit" class="btn btn-primary start">
-          <i class="icon-upload icon-white"></i>
-          <span>Start upload</span>
-        </button>
-      </div>
-      <div class="span5">
-        <!-- The global progress bar -->
-        <div class="progress progress-success progress-striped active fade">
-          <div class="bar" style="width:0%;"></div>
+<div class="span4">
+</div>
+<div class="span4 transparent-background">
+  <div class="standard-padding">
+    <div class="container" id="photo_loader">
+      <h3> Sign Up</h3>
+      <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="fileupload" method="post">
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+          <div class="span3">
+            <input type="text" name="user[email]" placeholder="Email">
+            <br>
+            <input type="text" name="user[username]" placeholder="Username">
+            <br>
+            <input type="password" name="user[password]" placeholder="Password">
+            <br>
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button">
+              <i class="icon-plus icon-white"></i>
+              <span>Select Photo</span>
+              <input id="map_photo_map_photo" name="user[user_photo]" type="file">
+            </span>
+            <button type="reset" class="btn btn-warning cancel">
+              <i class="icon-ban-circle icon-white"></i>
+              <span>Cancel upload</span>
+            </button>
+        <table class="table"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+        </table>
+            <button type="submit" class="btn btn-primary start">
+              <span>Sign Up!</span>
+            </button>
+          </div>
+          <div class="span5">
+            <!-- The global progress bar -->
+            <div class="progress progress-success progress-striped active fade">
+              <div class="bar" style="width:0%;"></div>
+            </div>
+          </div>
         </div>
-      </div>
+        <!-- The loading indicator is shown during image processing -->
+        <div class="fileupload-loading"></div>
+        <br>
+        <!-- The table listing the files available for upload/download -->
+      </form>
     </div>
-    <!-- The loading indicator is shown during image processing -->
-    <div class="fileupload-loading"></div>
-    <br>
-    <!-- The table listing the files available for upload/download -->
-  </form>
+  </div>
+</div>
+<div class="span4">
 </div>
 
 <!-- The template to display files available for download -->

@@ -6,7 +6,7 @@ MapBlog.Views.MapTripIndex = Backbone.View.extend({
   },
   template: JST["map_trips/index"],
   events: {
-    "click .delete_map_trip": "deleteMapTrip"
+    "click .delete-map-trip": "deleteMapTrip"
   },
   
   render: function() {

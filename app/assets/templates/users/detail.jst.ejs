@@ -1,0 +1,20 @@
+<div class="span2">
+</div>
+<div class="span8">
+  <div class="transparent-background">
+    <div class="standard-padding"> 
+      <div class="row">
+      <img class="user-page-img" src="<%= user.get("thumbnail_url") %>"></img>
+      <p class="user-page-title"><%= user.get("username") %></p>
+      <a class="btn btn-primary pull-right" href="#/users/edit"><i class="fa fa-pencil"></i> Edit</a>
+      </div>
+      <h4><%= user.get("username") %>'s Public Map Trips</h4>
+      <hr>
+      <div class="map_trips">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="span2">
+</div>
+

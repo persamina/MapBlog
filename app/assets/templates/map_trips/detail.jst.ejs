@@ -11,7 +11,9 @@
 
   <div id="trip_info">
     <div class="description"> <%= mapTrip.escape("description") %> </div> 
+    <% if (mapTrip.get("user_id") == MapBlog.currentUser.id) { %>
     <a class="btn btn-primary pull-right" href="#/<%= mapTrip.id %>/edit"><i class="fa fa-pencil"></i> Edit</a>
+    <% } %>
   </div>
 
   <script>

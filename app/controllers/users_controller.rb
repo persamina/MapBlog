@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    debugger
     @user = User.new(params[:user])
     if @user.save
       render :userJFU
@@ -16,7 +15,6 @@ class UsersController < ApplicationController
     
   end
   def update
-    debugger
     if params[:user][:id] == current_user.id.to_s
       @user = current_user
       if @user.update_attributes(params[:user])
@@ -34,6 +32,15 @@ class UsersController < ApplicationController
     if params[:user_id] == current_user.id.to_s
       @user = User.find(params[:user_id])
       render :userJFU
+    else
+      render 422
+    end
+  end
+
+  def show
+    @user = User.where("users.id = ?", params[:id]).includes(:map_trips).where("map_trips.shared = true")[0]
+    if @user
+      render :userWithTrips
     else
       render 422
     end

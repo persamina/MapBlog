@@ -7,7 +7,7 @@ MapBlog::Application.routes.draw do
     get :showJFU
   end
   resources :map_photos, :only => [:create, :update, :destroy]
-  resources :users, :only => [:create, :update, :destroy] do
+  resources :users, :only => [:create, :update, :destroy, :show] do
     get :showJFU
   end
   resources :comments, :only => [:show, :create, :update, :destroy]

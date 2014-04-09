@@ -37,7 +37,7 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
     this.map = L.mapbox.map('map');
     L.mapbox.tileLayer('persamina.hejgkefp').addTo(this.map);
 
-    if(this.model.get("map_photos").models.length > 0) {
+    if(this.model.get("map_photos").models.length > 0 && this.geoJSON.length > 0) {
       this.map.featureLayer.setGeoJSON(this.geoJSON); 
       this.map.fitBounds(this.map.featureLayer.getBounds());
     } else {

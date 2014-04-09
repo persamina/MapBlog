@@ -18,6 +18,9 @@ MapBlog.Views.UserNew = Backbone.View.extend({
       Backbone.history.navigate("sign_in", {trigger: true});
     });
 
+    $('#fileupload').bind('fileuploadfail', function(e, data) {
+      console.log("failed");
+    });
   },
 
 });

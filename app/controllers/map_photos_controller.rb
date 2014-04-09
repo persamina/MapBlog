@@ -22,6 +22,7 @@ class MapPhotosController < ApplicationController
   end
 
   def create
+    debugger
     @map_photo = MapPhoto.new(params[:map_photo])
     @map_photo.user_id = current_user.id if current_user
     if @map_photo.save

@@ -27,9 +27,13 @@
 // See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
 //
 // Example:
-@linkColor: #8CE2D0; 
+@linkColor: #DCDDDE;
 @textColor: #DCDDDE; 
-@headingsColor: #8CE2D0;
+@linkColorHover: darken(@linkColor, 15%);
+// mint green #8CE2D0;
+@headingsColor: #5DB986;
+//orange
+@btnPrimaryBackground: #B9512E;
 
 body {
   background: url("BackgroundMap.jpg");
@@ -116,6 +120,11 @@ div.description {
 .hidden {
   visibility: hidden;
 }
+
 .table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
   background: url("background.png");
+}
+
+a:hover {
+  text-decoration: none;
 }

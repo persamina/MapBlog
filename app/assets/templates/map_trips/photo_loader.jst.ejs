@@ -10,7 +10,7 @@
         <span>Add files...</span>
         <input id="map_photo_map_photo" name="map_photo[map_photo]" type="file">
       </span>
-      <button type="submit" class="btn btn-primary start">
+      <button type="submit" class="btn btn-primary no-gradient start">
         <i class="icon-upload icon-white"></i>
         <span>Start upload</span>
       </button>
@@ -55,7 +55,7 @@
         <td class="description"><input name="map_photo[description]" placeholder="Description"></input></td>
         <td class="map_trip_id"><input type="hidden" name="map_trip_id" value="<%= mapTrip.id %>"></input></td>
         <td class="start">{% if (!o.options.autoUpload) { %}
-          <button class="btn btn-primary">
+          <button class="btn btn-primary no-gradient">
             <i class="icon-upload icon-white"></i>
             <span>{%=locale.fileupload.start%}</span>
           </button>

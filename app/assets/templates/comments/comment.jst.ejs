@@ -1,9 +1,14 @@
-<li class="media">
+<li class="media" id="<%= comment.id %>">
   <a class="pull-left" href="#">
     <img class="comment-image" src="<%= comment.get("user").get("thumbnail_url") %>" >
   </a>
   <div class="media-body">
+    <% if(comment.get("user").get("id") == MapBlog.currentUser.id) { %>
+      <a class="delete-comment pull-right" title="Delete" data-comment-id="<%=comment.id %>" href="#"><i class="fa fa-times"></i></a>
+    <% } %>
     <h5 class="comment-username"><%= comment.get("user").get("username") %></h5>
     <p class="comment-paragraph"><%= comment.get("comment_text") %></p>
   </div>
 </li>
+<div class="comment-divider" id="comment-<%= comment.id %>"></div>
+

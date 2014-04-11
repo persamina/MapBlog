@@ -12,7 +12,7 @@
   <div id="trip_info">
     <div class="description"> <%= mapTrip.escape("description") %> </div> 
     <% if (mapTrip.get("user_id") == MapBlog.currentUser.id) { %>
-    <a class="btn btn-primary pull-right" href="#/<%= mapTrip.id %>/edit"><i class="fa fa-pencil"></i> Edit</a>
+    <a class="btn btn-primary no-gradient pull-right" href="#/<%= mapTrip.id %>/edit"><i class="fa fa-pencil"></i> Edit</a>
     <% } %>
   </div>
 
@@ -31,12 +31,15 @@
       emptyResult: 'Empty file upload result'
     };
 
-  </script>
 
-  <div class="comments">
-    <ul class="media-list comments">
-    </ul>
+  </script>
+  <div class="row">
+    <div class="comments span5">
+      <ul class="media-list comments">
+      </ul>
+    </div>
   </div>
+
   <div class="standard-padding">
     <a href="" class="show_hide_button btn">Hide Photo Loader</a>
   </div>

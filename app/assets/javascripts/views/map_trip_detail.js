@@ -4,6 +4,7 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
     this.geoJSON = [];
     this.galleriaData = [];
     this.currentPhoto = null;
+
   },
   selectedColor: "#a0e5ce",
   deselectedColor: "#1C625E",
@@ -11,6 +12,7 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
   events: {
     "click a.show_hide_button": "showHidePhotoAdder",
     "keypress.new_comment": "addNewComment",
+    "click a.delete-comment": "deleteComment",
   },
 
   template: JST["map_trips/detail"],
@@ -252,6 +254,21 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
     }
   },
 
+  deleteComment: function(e) {
+    var mapTripDetail = this;
+    e.preventDefault();
+    var commentId = $(e.currentTarget).data().commentId;
+    var commentToDelete = mapTripDetail.model.get("map_photos").models[mapTripDetail.currentPhoto.index].get("comments").where({id: commentId})[0];
+    commentToDelete.destroy({
+      wait: true,
+      success: function(model, response) {
+        $(".media#"+commentId).fadeOut("fast");
+        $("div.comment-divider#comment-" + commentId).remove();
+        console.log(response);
+      }
+    });
+    
+  },
   groupComments: function(rawComments) {
     var groupedComments = new Object;
     rawComments.forEach(function(comment) {

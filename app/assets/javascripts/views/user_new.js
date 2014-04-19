@@ -16,6 +16,8 @@ MapBlog.Views.UserNew = Backbone.View.extend({
 
     $('#fileupload').bind('fileuploaddone', function(e, data) {
       Backbone.history.navigate("sign_in", {trigger: true});
+      var successMessage = MapBlog.Store.successTemplate({message: "New User Created!"});
+      $(".success-messages").append(successMessage);
     });
 
     $('#fileupload').bind('fileuploadfail', function(e, data) {

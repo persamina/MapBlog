@@ -118,6 +118,9 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
       }
 
       mapTripDetail.map.fitBounds(mapTripDetail.map.featureLayer.getBounds());
+
+      var successMessage = MapBlog.Store.successTemplate({message: "Photo added!"});
+      $(".success-messages").append(successMessage);
       
     });
 
@@ -143,10 +146,7 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
     });
 
   },
-  initializeFileUpload: function() {
 
-
-  },
   generateImageData: function(mapTrip) {
     //var galleriaData = [];
     //var deselectedColor = "#1C625E";

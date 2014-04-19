@@ -15,6 +15,8 @@ MapBlog.Views.UserEdit = Backbone.View.extend({
     var editUserView = this;
 
     $('#fileupload').bind('fileuploaddone', function(e, data) {
+      var successMessage = MapBlog.Store.successTemplate({message: "User Updated!"});
+      $(".success-messages").append(successMessage);
       Backbone.history.navigate("sign_in", {trigger: true});
     });
 

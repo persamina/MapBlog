@@ -37,7 +37,8 @@ MapBlog.Views.MapTripIndex = Backbone.View.extend({
     mapTripToDelete.destroy({
       wait: true,
       success: function(model, response) {
-        console.log("successfully destroyed");
+        var successMessage = MapBlog.Store.successTemplate({message: "Map Trip successfully Deleted"});
+        $(".success-messages").append(successMessage);
       }
     });
   }

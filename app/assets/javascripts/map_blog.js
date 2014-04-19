@@ -3,7 +3,16 @@ window.MapBlog = {
   Collections: {},
   Views: {},
   Routers: {},
+  Store: {},
   initialize: function() {
+
+    MapBlog.Store = {
+      errorTemplate: JST["messages/error"],
+      infoTemplate: JST["messages/info"],
+      successTemplate: JST["messages/success"],
+      warningTemplate: JST["messages/warning"],
+    }
+
     var mapTripsRaw = $('#map-trips-data').html()
     var publicMapTripsRaw = $('#public-map-trips-data').html()
     var currentUserRaw = $('#user-data').html();

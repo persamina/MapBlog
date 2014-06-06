@@ -65,7 +65,6 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
       galleria.show(e.layer.feature.properties["slideIndex"]);
     });
 
-    this.initializeFileUpload();
 
     $('#fileupload').bind('fileuploaddone', function(e, data) {
       var galleria = $(".galleria").data('galleria');
@@ -123,6 +122,10 @@ MapBlog.Views.MapTripDetail = Backbone.View.extend({
       $(".success-messages").append(successMessage);
       
     });
+		
+    $('#fileupload').bind('fileuploadsubmit', function(e, data) {
+			console.log("submitted");
+		});
 
     $('#fileupload').bind('fileuploaddestroy', function(e, data) {
       var galleria = $(".galleria").data('galleria');

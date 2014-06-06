@@ -36,8 +36,6 @@ class MapTripsController < ApplicationController
   end
 
   def create
-    puts "params"
-    puts params
     @map_trip = MapTrip.new(params[:map_trip])
     @map_trip.user_id = current_user.id if current_user
     if @map_trip.save
